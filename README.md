@@ -1,5 +1,7 @@
 # 2021_Spring_finals
 
+### Team members: Hina Ramnani (ramnani2)
+###               Shraddha Tiwari (tiwari5)                 
 ## Story of Hate Crimes- A Decade-wise analysis of hate crimes in the US
 
 The purpose of our project is to look at how Hate Crimes in the USA have an association with various factors.
