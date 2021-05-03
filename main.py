@@ -30,6 +30,11 @@ def cleancensus(file):
 
 
 def cleanhatecrime(datafile):
+    """
+
+    :param datafile:
+    :return:
+    """
     read = pd.read_csv(datafile)
     table = read.groupby(['STATE_NAME', 'DATA_YEAR']).sum()[['VICTIM_COUNT']]
     table.reset_index(inplace=True)
@@ -37,11 +42,24 @@ def cleanhatecrime(datafile):
     return table
 
 def combine(dataframe1, dataframe2):
+    """
+
+    :param dataframe1:
+    :param dataframe2:
+    :return:
+    """
     joined = dataframe1.merge(dataframe2, how='left', left_on= ['State', 'Year'], right_on= ['STATE_NAME', 'DATA_YEAR'])
     joined.drop(['STATE_NAME', 'DATA_YEAR'], 1, inplace=True)
     return joined
 
+
 def all_years(df1, df2):
+    """
+
+    :param df1:
+    :param df2:
+    :return:
+    """
     decade1 = df1[df1['VICTIM_COUNT'].notna()]
     decade2 = df2[df2['VICTIM_COUNT'].notna()]
     decade1 = decade1.groupby('Year')[['Population', 'VICTIM_COUNT']].sum()
@@ -51,7 +69,21 @@ def all_years(df1, df2):
     all_years_table = decade1.groupby('Year')['Victims per mil'].sum().append(decade2.groupby('Year')['Victims per mil'].sum())
     return all_years_table
 
-if __name__ == '__main__':
+
+
+def hypo1_trendline_decadewise(year_df):
+    """
+
+    :param year_df:
+    :return:
+    """
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(y=year_df[:11], x=year_df[:11].index, name='2000s'))
+    fig.add_trace(go.Scatter(y=year_df[10:], x=year_df[10:].index, name='2010s'))
+    fig.show()
+
+
+if _name_ == '_main_':
     file1 = './pop_2000-2009.csv'
     file2 = './pop_2010-2019.csv'
     datafile = './hate_crime.csv'
@@ -65,5 +97,6 @@ if __name__ == '__main__':
     decade1 = combine(dataframe1, dataframe2)
     decade2 = combine(dataframe3, dataframe2)
     all_years_df = all_years(decade1, decade2)
-    print(all_years_df)
+    #print(all_years_df)
+    hypo1_trendline_decadewise(all_years_df)
 
