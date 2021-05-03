@@ -27,3 +27,10 @@ def cleancensus(file):
     census['Population'] = census['Population'].str.replace(',', '').astype(str).astype(int)
     census['Year'] = census['Year'].astype(str).astype(int)
     return census
+
+if __name__ == '__main__':
+    file1 = './pop_2000-2009.csv'
+    file2 = './pop_2010-2019.csv'
+    decade1 = cleancensus(file1)
+    decade2 = cleancensus(file2)
+    print(decade1)
