@@ -28,9 +28,19 @@ def cleancensus(file):
     census['Year'] = census['Year'].astype(str).astype(int)
     return census
 
+
+def cleanhatecrime(datafile):
+    read = pd.read_csv(datafile)
+    table = read.groupby(['STATE_NAME', 'DATA_YEAR']).sum()[['VICTIM_COUNT']]
+    table.reset_index(inplace=True)
+
+    return table
+
 if __name__ == '__main__':
     file1 = './pop_2000-2009.csv'
     file2 = './pop_2010-2019.csv'
+    datafile = './hate_crime.csv'
     decade1 = cleancensus(file1)
     decade2 = cleancensus(file2)
-    print(decade1)
+    hate_crime = cleanhatecrime(datafile)
+    print(hate_crime)
