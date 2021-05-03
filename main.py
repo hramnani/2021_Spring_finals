@@ -83,6 +83,14 @@ def hypo1_trendline_decadewise(year_df):
     fig.show()
 
 
+def race_hypo2(all_races):
+    for indx, one_race in enumerate(all_races):
+        race_hate = races.merge(dataframe2, right_on=['STATE_NAME', 'DATA_YEAR'], left_on=['Location', 'Timeframe'])[['Location', one_race, 'Total', 'VICTIM_COUNT']]
+        race_hate_all = race_hate.groupby('Location').sum().reset_index()
+        fig = race_hate_all.plot.scatter(x=one_race, y='VICTIM_COUNT', hover_name='Location')
+        fig.show()
+
+
 if __name__ == '__main__':
     file1 = './pop_2000-2009.csv'
     file2 = './pop_2010-2019.csv'
@@ -99,4 +107,12 @@ if __name__ == '__main__':
     all_years_df = all_years(decade1, decade2)
     #print(all_years_df)
     #hypo1_trendline_decadewise(all_years_df)
+    temp = []
+    for files in glob.glob("./csv/*.csv"):
+        df = pd.read_csv(files, index_col=None, header=0)
+        temp.append(df)
+    races = pd.concat(temp, axis=0, ignore_index=True)
+    #print(races.columns)
+    race_hypo2(['White', 'Black', 'Hispanic', 'Asian', 'American Indian/Alaska Native',
+               'Native Hawaiian/Other Pacific Islander', 'Multiple Races'])
 
