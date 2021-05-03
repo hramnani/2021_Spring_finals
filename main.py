@@ -102,6 +102,13 @@ def unemp_data(unempfile):
     return unemp
 
 
+
+def state_hatecrime(hc):
+    data_crimes_state = hc.groupby([hc.OFFENSE_NAME, 'STATE_NAME', 'DATA_YEAR']).sum().reset_index()
+    data_crimes_state = data_crimes_state[['OFFENSE_NAME', 'STATE_NAME', 'VICTIM_COUNT', 'DATA_YEAR']]
+    return data_crimes_state
+
+
 if __name__ == '__main__':
     file1 = 'pop_2000-2009.csv'
     file2 = 'pop_2010-2019.csv'
@@ -130,3 +137,8 @@ if __name__ == '__main__':
     unempfile = 'unemp.csv'
     unemp_df = unemp_data(unempfile)
     #print(unemp_df)
+
+
+    hc_df = pd.read_csv('./hate_crime.csv')
+    data_crimes_state = state_hatecrime(hc_df)
+    print(data_crimes_state)
