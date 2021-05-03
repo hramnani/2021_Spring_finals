@@ -21,8 +21,8 @@ Testing association between unemployment rate and hate crime
 
 
 ### Data Sources:
-Census data 2010-2019 https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html
-Census data 2000-2009 https://www.census.gov/data/tables/time-series/demo/popest/intercensal-2000-2010-state.html
-Hate crime data https://crime-data-explorer.fr.cloud.gov/pages/downloads
-Unemployment data https://www.icip.iastate.edu/tables/employment/unemployment-states
-Race data https://www.kff.org/other/state-indicator/distribution-by-raceethnicity/?dataView=1&currentTimeframe=9&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D
+#### Census data 2010-2019 https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html
+#### Census data 2000-2009 https://www.census.gov/data/tables/time-series/demo/popest/intercensal-2000-2010-state.html
+#### Hate crime data https://crime-data-explorer.fr.cloud.gov/pages/downloads
+#### Unemployment data https://www.icip.iastate.edu/tables/employment/unemployment-states
+#### Race data https://www.kff.org/other/state-indicator/distribution-by-raceethnicity/?dataView=1&currentTimeframe=9&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D
