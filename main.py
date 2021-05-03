@@ -109,6 +109,15 @@ def state_hatecrime(hc):
     return data_crimes_state
 
 
+
+
+def unemp_hate_crime(frame1, frame2):
+    group_crime_unemp = frame1.merge(frame2, left_on=['STATE_NAME', 'DATA_YEAR'], right_on=['State', 'Year'])
+    group_crime_unemp = group_crime_unemp[['OFFENSE_NAME', 'State', 'Year', 'VICTIM_COUNT', 'Unemployment Rate']]
+    return group_crime_unemp
+
+
+
 if __name__ == '__main__':
     file1 = 'pop_2000-2009.csv'
     file2 = 'pop_2010-2019.csv'
@@ -141,4 +150,9 @@ if __name__ == '__main__':
 
     hc_df = pd.read_csv('./hate_crime.csv')
     data_crimes_state = state_hatecrime(hc_df)
-    print(data_crimes_state)
+    #print(data_crimes_state)
+
+    frame1 = data_crimes_state
+    frame2 = unemp_df
+    unemp_crime_df= unemp_hate_crime(frame1, frame2)
+    #print(unemp_crime_df)
