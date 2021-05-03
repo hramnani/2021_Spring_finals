@@ -83,7 +83,7 @@ def hypo1_trendline_decadewise(year_df):
     fig.show()
 
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     file1 = './pop_2000-2009.csv'
     file2 = './pop_2010-2019.csv'
     datafile = './hate_crime.csv'
@@ -98,5 +98,5 @@ if _name_ == '_main_':
     decade2 = combine(dataframe3, dataframe2)
     all_years_df = all_years(decade1, decade2)
     #print(all_years_df)
-    hypo1_trendline_decadewise(all_years_df)
+    #hypo1_trendline_decadewise(all_years_df)
 
