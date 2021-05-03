@@ -70,9 +70,6 @@ def all_years(df1, df2):
     return all_years_table
 
 
-
-
-
 def hypo1_trendline_decadewise(year_df):
     """
 
@@ -117,6 +114,11 @@ def unemp_hate_crime(frame1, frame2):
     return group_crime_unemp
 
 
+def plot_unemp_hatecrime(offense_name, state):
+    unemp_hate_crime_state= unemp_crime_df.loc[(unemp_crime_df['OFFENSE_NAME'] == offense_name) & (unemp_crime_df['State'] == state)]
+    scatter = unemp_hate_crime_state.plot.scatter(x='Unemployment Rate', y='VICTIM_COUNT', hover_name='Year')
+    scatter.show()
+
 
 if __name__ == '__main__':
     file1 = 'pop_2000-2009.csv'
@@ -156,3 +158,5 @@ if __name__ == '__main__':
     frame2 = unemp_df
     unemp_crime_df= unemp_hate_crime(frame1, frame2)
     #print(unemp_crime_df)
+
+    plot_unemp_hatecrime('Aggravated Assault', 'Illinois')
