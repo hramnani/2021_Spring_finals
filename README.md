@@ -11,7 +11,7 @@ The purpose of our project is to look at how Hate Crimes in the USA have an asso
 ### Hypothesis 1:
 The comparison of hate crime victims' count over a time-series of the past 2 decades:
 The rate of hate crimes was higher between 2000-2010 vs between 2010-2019
-![2021-03-17-hate-crime-la](https://user-images.githubusercontent.com/77983281/116895024-5c143780-abf8-11eb-826d-e907408220e3.jpeg)
+![2021-03-17-hate-crime-la](https://user-images.githubusercontent.com/77983281/116895024-5c143780-abf8-11eb-826d-e907408220e3.jpeg= 250x250)
 
 
 ### Hypothesis 2:
