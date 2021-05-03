@@ -93,10 +93,19 @@ def race_hypo2(all_races):
         fig.show()
 
 
+def unemp_data(unempfile):
+    uefile = pd.read_csv(unempfile)
+    uefile.drop('Fips', 1, inplace=True)
+    unemp = uefile.melt(id_vars='Area')
+    unemp.columns = ['State', 'Year', 'Unemployment Rate']
+    unemp['Year'] = unemp['Year'].astype('int')
+    return unemp
+
+
 if __name__ == '__main__':
-    file1 = './pop_2000-2009.csv'
-    file2 = './pop_2010-2019.csv'
-    datafile = './hate_crime.csv'
+    file1 = 'pop_2000-2009.csv'
+    file2 = 'pop_2010-2019.csv'
+    datafile = 'hate_crime.csv'
     #decade1 = cleancensus(file1)
     #decade2 = cleancensus(file2)
     #hate_crime = cleanhatecrime(datafile)
@@ -106,7 +115,7 @@ if __name__ == '__main__':
     dataframe3 = cleancensus(file2)
     decade1 = combine(dataframe1, dataframe2)
     decade2 = combine(dataframe3, dataframe2)
-    all_years_df = all_years(decade1, decade2)
+    # all_years_df = all_years(decade1, decade2)
     #print(all_years_df)
     #hypo1_trendline_decadewise(all_years_df)
     temp = []
@@ -115,6 +124,9 @@ if __name__ == '__main__':
         temp.append(df)
     races = pd.concat(temp, axis=0, ignore_index=True)
     #print(races.columns)
-    race_hypo2(['White', 'Black', 'Hispanic', 'Asian', 'American Indian/Alaska Native',
-               'Native Hawaiian/Other Pacific Islander', 'Multiple Races'])
+    #race_hypo2(['White', 'Black', 'Hispanic', 'Asian', 'American Indian/Alaska Native',
+               #'Native Hawaiian/Other Pacific Islander', 'Multiple Races'])
 
+    unempfile = 'unemp.csv'
+    unemp_df = unemp_data(unempfile)
+    #print(unemp_df)
