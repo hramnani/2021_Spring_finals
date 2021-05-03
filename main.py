@@ -159,4 +159,4 @@ if __name__ == '__main__':
     unemp_crime_df= unemp_hate_crime(frame1, frame2)
     #print(unemp_crime_df)
 
-    plot_unemp_hatecrime('Aggravated Assault', 'Illinois')
+    #plot_unemp_hatecrime('Aggravated Assault', 'Illinois')
