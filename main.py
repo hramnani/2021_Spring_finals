@@ -119,6 +119,11 @@ def plot_unemp_hatecrime(offense_name, state):
     scatter = unemp_hate_crime_state.plot.scatter(x='Unemployment Rate', y='VICTIM_COUNT', hover_name='Year')
     scatter.show()
 
+def unemp_hate_crime_corr(unemp_crime_df):
+    corr = unemp_crime_df.groupby(['State', 'OFFENSE_NAME', 'Year']).sum().reset_index()
+    corr = corr.loc[(corr['OFFENSE_NAME'] == 'Aggravated Assault')]
+    corr = corr.groupby('State')[['VICTIM_COUNT', 'Unemployment Rate']].corr().unstack().iloc[:, 1]
+    return corr
 
 if __name__ == '__main__':
     file1 = 'pop_2000-2009.csv'
@@ -160,3 +165,5 @@ if __name__ == '__main__':
     #print(unemp_crime_df)
 
     #plot_unemp_hatecrime('Aggravated Assault', 'Illinois')
+    state_unemp_crime_corr = unemp_hate_crime_corr(unemp_crime_df)
+    #print(state_unemp_crime_corr)
