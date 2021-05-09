@@ -45,6 +45,13 @@ def cleanhatecrime(datafile):
     """
     :param datafile:
     :return:
+    >>> h_file = 'hatesample.csv'
+    >>> h_df = cleanhatecrime(h_file)
+    >>> h_df
+                 STATE_NAME  DATA_YEAR  VICTIM_COUNT
+    0  District of Columbia       2019            25
+    1               Florida       2019             6
+
     """
     read = pd.read_csv(datafile)
     table = read.groupby(['STATE_NAME', 'DATA_YEAR']).sum()[['VICTIM_COUNT']]
