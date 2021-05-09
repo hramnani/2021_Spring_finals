@@ -9,18 +9,19 @@ def cleancensus(file):
     """
     :param file:
     :return:
-    >>> file = 'census_data_f.csv'
-    >>> df = cleancensus(file)
-    >>> print(df)
+    >>> c_file = 'censussample.csv'
+    >>> c_df = cleancensus(c_file)
+    >>> c_df
            State  Population  Year
-    4    Alabama     4718206  2008
-    5     Alaska      687455  2008
-    6    Arizona     6280362  2008
-    7   Arkansas     2874554  2008
-    8    Alabama     4757938  2009
-    9     Alaska      698895  2009
-    10   Arizona     6343154  2009
-    11  Arkansas     2896843  2009
+    3    Florida    20963613  2017
+    4   Illinois    12778828  2017
+    5   Maryland     6023868  2017
+    6    Florida    21244317  2018
+    7   Illinois    12723071  2018
+    8   Maryland     6035802  2018
+    9    Florida    21477737  2019
+    10  Illinois    12671821  2019
+    11  Maryland     6045680  2019
 
     """
     cleaned = pd.read_csv(file)
@@ -48,9 +49,16 @@ def cleanhatecrime(datafile):
     >>> h_file = 'hatesample.csv'
     >>> h_df = cleanhatecrime(h_file)
     >>> h_df
-                 STATE_NAME  DATA_YEAR  VICTIM_COUNT
-    0  District of Columbia       2019            25
-    1               Florida       2019             6
+      STATE_NAME  DATA_YEAR  VICTIM_COUNT
+    0    Florida       2017           172
+    1    Florida       2018           171
+    2    Florida       2019           139
+    3   Illinois       2017           104
+    4   Illinois       2018           144
+    5   Illinois       2019            97
+    6   Maryland       2017           115
+    7   Maryland       2018            62
+    8   Maryland       2019            22
 
     """
     read = pd.read_csv(datafile)
@@ -64,6 +72,23 @@ def combine(dataframe1, dataframe2):
     :param dataframe1:
     :param dataframe2:
     :return:
+    >>> c_file = 'censussample.csv'
+    >>> c_df = cleancensus(c_file)
+    >>> h_file = 'hatesample.csv'
+    >>> h_df = cleanhatecrime(h_file)
+    >>> decade2 = combine(c_df, h_df)
+    >>> decade2
+          State  Population  Year  VICTIM_COUNT
+    0   Florida    20963613  2017           172
+    1  Illinois    12778828  2017           104
+    2  Maryland     6023868  2017           115
+    3   Florida    21244317  2018           171
+    4  Illinois    12723071  2018           144
+    5  Maryland     6035802  2018            62
+    6   Florida    21477737  2019           139
+    7  Illinois    12671821  2019            97
+    8  Maryland     6045680  2019            22
+
     """
     joined = dataframe1.merge(dataframe2, how='left', left_on= ['State', 'Year'], right_on= ['STATE_NAME', 'DATA_YEAR'])
     joined.drop(['STATE_NAME', 'DATA_YEAR'], 1, inplace=True)
