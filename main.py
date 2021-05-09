@@ -114,16 +114,31 @@ def unemp_hate_crime(frame1, frame2):
     return group_crime_unemp
 
 
+
 def plot_unemp_hatecrime(offense_name, state):
     unemp_hate_crime_state= unemp_crime_df.loc[(unemp_crime_df['OFFENSE_NAME'] == offense_name) & (unemp_crime_df['State'] == state)]
     scatter = unemp_hate_crime_state.plot.scatter(x='Unemployment Rate', y='VICTIM_COUNT', hover_name='Year')
     scatter.show()
 
+
+
 def unemp_hate_crime_corr(unemp_crime_df):
-    corr = unemp_crime_df.groupby(['State', 'OFFENSE_NAME', 'Year']).sum().reset_index()
-    corr = corr.loc[(corr['OFFENSE_NAME'] == 'Aggravated Assault')]
-    corr = corr.groupby('State')[['VICTIM_COUNT', 'Unemployment Rate']].corr().unstack().iloc[:, 1]
+    for_corr = unemp_crime_df.groupby(['State', 'OFFENSE_NAME', 'Year']).sum().reset_index()
+    for_corr = for_corr.loc[(for_corr['OFFENSE_NAME'] == 'Aggravated Assault')]
+    corr = for_corr.groupby('State')[['VICTIM_COUNT', 'Unemployment Rate']].corr().unstack().iloc[:, 1]
     return corr
+
+
+
+def corr_plot(state_unemp_crime_corr):
+    states = state_unemp_crime_corr[(state_unemp_crime_corr > 0.5) | (state_unemp_crime_corr < -0.5)]
+    for_corr = unemp_crime_df.groupby(['State', 'OFFENSE_NAME', 'Year']).sum().reset_index()
+    for_corr = for_corr.loc[(for_corr['OFFENSE_NAME'] == 'Aggravated Assault')]
+    for state in states.index.to_list():
+        fig = for_corr[for_corr['State'] == state].plot.scatter(x='Unemployment Rate', y='VICTIM_COUNT', title=state)
+        fig.show()
+
+
 
 if __name__ == '__main__':
     file1 = 'pop_2000-2009.csv'
@@ -167,3 +182,6 @@ if __name__ == '__main__':
     #plot_unemp_hatecrime('Aggravated Assault', 'Illinois')
     state_unemp_crime_corr = unemp_hate_crime_corr(unemp_crime_df)
     #print(state_unemp_crime_corr)
+
+
+    #print(corr_plot(state_unemp_crime_corr))
