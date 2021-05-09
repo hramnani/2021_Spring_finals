@@ -7,9 +7,21 @@ import glob as glob
 
 def cleancensus(file):
     """
-
     :param file:
     :return:
+    >>> file = 'census_data_f.csv'
+    >>> df = cleancensus(file)
+    >>> print(df)
+           State  Population  Year
+    4    Alabama     4718206  2008
+    5     Alaska      687455  2008
+    6    Arizona     6280362  2008
+    7   Arkansas     2874554  2008
+    8    Alabama     4757938  2009
+    9     Alaska      698895  2009
+    10   Arizona     6343154  2009
+    11  Arkansas     2896843  2009
+
     """
     cleaned = pd.read_csv(file)
     year_cols = []
@@ -31,7 +43,6 @@ def cleancensus(file):
 
 def cleanhatecrime(datafile):
     """
-
     :param datafile:
     :return:
     """
@@ -43,7 +54,6 @@ def cleanhatecrime(datafile):
 
 def combine(dataframe1, dataframe2):
     """
-
     :param dataframe1:
     :param dataframe2:
     :return:
@@ -55,7 +65,6 @@ def combine(dataframe1, dataframe2):
 
 def all_years(df1, df2):
     """
-
     :param df1:
     :param df2:
     :return:
@@ -72,7 +81,6 @@ def all_years(df1, df2):
 
 def hypo1_trendline_decadewise(year_df):
     """
-
     :param year_df:
     :return:
     """
@@ -83,6 +91,13 @@ def hypo1_trendline_decadewise(year_df):
 
 
 def race_hypo2(all_races):
+    """
+
+    :param all_races:
+    :type all_races:
+    :return:
+    :rtype:
+    """
     for indx, one_race in enumerate(all_races):
         race_hate = races.merge(dataframe2, right_on=['STATE_NAME', 'DATA_YEAR'], left_on=['Location', 'Timeframe'])[['Location', one_race, 'Total', 'VICTIM_COUNT']]
         race_hate_all = race_hate.groupby('Location').sum().reset_index()
@@ -91,6 +106,13 @@ def race_hypo2(all_races):
 
 
 def unemp_data(unempfile):
+    """
+
+    :param unempfile:
+    :type unempfile:
+    :return:
+    :rtype:
+    """
     uefile = pd.read_csv(unempfile)
     uefile.drop('Fips', 1, inplace=True)
     unemp = uefile.melt(id_vars='Area')
@@ -101,6 +123,13 @@ def unemp_data(unempfile):
 
 
 def state_hatecrime(hc):
+    """
+
+    :param hc:
+    :type hc:
+    :return:
+    :rtype:
+    """
     data_crimes_state = hc.groupby([hc.OFFENSE_NAME, 'STATE_NAME', 'DATA_YEAR']).sum().reset_index()
     data_crimes_state = data_crimes_state[['OFFENSE_NAME', 'STATE_NAME', 'VICTIM_COUNT', 'DATA_YEAR']]
     return data_crimes_state
@@ -109,6 +138,15 @@ def state_hatecrime(hc):
 
 
 def unemp_hate_crime(frame1, frame2):
+    """
+
+    :param frame1:
+    :type frame1:
+    :param frame2:
+    :type frame2:
+    :return:
+    :rtype:
+    """
     group_crime_unemp = frame1.merge(frame2, left_on=['STATE_NAME', 'DATA_YEAR'], right_on=['State', 'Year'])
     group_crime_unemp = group_crime_unemp[['OFFENSE_NAME', 'State', 'Year', 'VICTIM_COUNT', 'Unemployment Rate']]
     return group_crime_unemp
@@ -116,6 +154,15 @@ def unemp_hate_crime(frame1, frame2):
 
 
 def plot_unemp_hatecrime(offense_name, state):
+    """
+
+    :param offense_name:
+    :type offense_name:
+    :param state:
+    :type state:
+    :return:
+    :rtype:
+    """
     unemp_hate_crime_state= unemp_crime_df.loc[(unemp_crime_df['OFFENSE_NAME'] == offense_name) & (unemp_crime_df['State'] == state)]
     scatter = unemp_hate_crime_state.plot.scatter(x='Unemployment Rate', y='VICTIM_COUNT', hover_name='Year')
     scatter.show()
@@ -123,6 +170,13 @@ def plot_unemp_hatecrime(offense_name, state):
 
 
 def unemp_hate_crime_corr(unemp_crime_df):
+    """
+
+    :param unemp_crime_df:
+    :type unemp_crime_df:
+    :return:
+    :rtype:
+    """
     for_corr = unemp_crime_df.groupby(['State', 'OFFENSE_NAME', 'Year']).sum().reset_index()
     for_corr = for_corr.loc[(for_corr['OFFENSE_NAME'] == 'Aggravated Assault')]
     corr = for_corr.groupby('State')[['VICTIM_COUNT', 'Unemployment Rate']].corr().unstack().iloc[:, 1]
@@ -131,6 +185,13 @@ def unemp_hate_crime_corr(unemp_crime_df):
 
 
 def corr_plot(state_unemp_crime_corr):
+    """
+
+    :param state_unemp_crime_corr:
+    :type state_unemp_crime_corr:
+    :return:
+    :rtype:
+    """
     states = state_unemp_crime_corr[(state_unemp_crime_corr > 0.5) | (state_unemp_crime_corr < -0.5)]
     for_corr = unemp_crime_df.groupby(['State', 'OFFENSE_NAME', 'Year']).sum().reset_index()
     for_corr = for_corr.loc[(for_corr['OFFENSE_NAME'] == 'Aggravated Assault')]
