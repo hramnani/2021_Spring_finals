@@ -61,3 +61,8 @@ From all our above Hypothesis, we aim to understand how Hate Crimes have changed
 #### Hate crime data https://crime-data-explorer.fr.cloud.gov/pages/downloads
 #### Unemployment data https://www.icip.iastate.edu/tables/employment/unemployment-states
 #### Race data https://www.kff.org/other/state-indicator/distribution-by-raceethnicity/?dataView=1&currentTimeframe=9&sortModel=%7B%22colId%22:%22Location%22,%22sort%22:%22asc%22%7D
+
+
+### Other helpful links used:
+#### #https://stackoverflow.com/questions/28988627/pandas-correlation-groupbyfor_
+#### #https://thispointer.com/python-pandas-select-rows-in-dataframe-by-conditions-on-multiple-columns/
