@@ -233,6 +233,21 @@ def corr_plot(state_unemp_crime_corr):
 
 
 
+def hate_crime_race_bias(hate_crime_df):
+    hate_crimes_races = hate_crime_df[['DATA_YEAR', 'STATE_NAME', 'VICTIM_COUNT', 'BIAS_DESC']]
+    hate_crimes_races = hate_crimes_races[hate_crimes_races['BIAS_DESC'].isin(['Anti-White', 'Anti-Black or African American', 'Anti-Asian', 'Anti-Multiple Races, Group'])]
+    hate_crimes_bias_perc = hate_crimes_races.groupby('DATA_YEAR').sum()
+    hate_crimes_bias_perc.columns = ['YEARLY_VICTIM_COUNT']
+    hate_crimes_race_bias_group = hate_crimes_races.groupby(['DATA_YEAR', 'BIAS_DESC']).sum()
+    hate_crimes_race_bias_group.index.to_list()
+    hate_crimes_race_bias_group.reset_index()
+    bias_perc_merge = hate_crimes_race_bias_group.reset_index().merge(hate_crimes_bias_perc, left_on='DATA_YEAR', right_on='DATA_YEAR')
+    bias_perc_merge['VICTIM_COUNT_PERC'] = bias_perc_merge['VICTIM_COUNT'] / bias_perc_merge['YEARLY_VICTIM_COUNT']
+    fig = px.bar(bias_perc_merge.reset_index(), x="DATA_YEAR", y="VICTIM_COUNT_PERC",
+                 color='BIAS_DESC')
+    fig.show()
+
+
 if __name__ == '__main__':
     file1 = 'pop_2000-2009.csv'
     file2 = 'pop_2010-2019.csv'
@@ -263,7 +278,7 @@ if __name__ == '__main__':
     #print(unemp_df)
 
 
-    hc_df = pd.read_csv('./hate_crime.csv')
+    hc_df = pd.read_csv('hate_crime.csv')
     data_crimes_state = state_hatecrime(hc_df)
     #print(data_crimes_state)
 
@@ -278,3 +293,7 @@ if __name__ == '__main__':
 
 
     #print(corr_plot(state_unemp_crime_corr))
+
+    hate_crime_df= pd.read_csv('hate_crime.csv')
+    hc_race_bias_plot= hate_crime_race_bias(hate_crime_df)
+    #print(hc_race_bias_plot)
