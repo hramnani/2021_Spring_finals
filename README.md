@@ -59,6 +59,16 @@ As we can see from the Stacked Bar Plot, the hate crimes towards races mostly re
 From all our above Hypothesis, we aim to understand how Hate Crimes have changed over the decades, and whether the Racial Population plays a part in the Victim Count of Hate Crimes being committed over the years, along with an Unemployment and a Bias factor that is analysed against the Data.
 
 
+
+### Contributions:
+Hina Ramnani (ramnani2):
+- Completed Doctests, Docstrings, Plots and functions for Hypothesis 1 and 3
+
+Shraddha Tiwari (tiwari5):
+- Completed Doctests, Docstrings, Plots and functions for Hypothesis 2 and 4
+
+
+
 ### Data Sources:
 #### Census data 2010-2019 https://www.census.gov/data/tables/time-series/demo/popest/2010s-state-total.html
 #### Census data 2000-2009 https://www.census.gov/data/tables/time-series/demo/popest/intercensal-2000-2010-state.html
