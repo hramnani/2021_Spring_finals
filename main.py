@@ -8,8 +8,10 @@ import numpy as np
 
 def hypo1_trendline_decadewise(year_df: pd.DataFrame):
     """
-    :param year_df:
-    :return:
+    This function takes in the Dataframe containing the Victims per million of the population against all years
+    spanning two decades and uses Trend Line Plot to display the trend line for victim count spanning two decades.
+    :param year_df: Dataframe containing the value for victim count against its year
+    :return: Trend Line Plot
     """
     fig = go.Figure()
     fig.add_trace(go.Scatter(y=year_df[:11], x=year_df[:11].index, name='2000s'))
@@ -19,8 +21,11 @@ def hypo1_trendline_decadewise(year_df: pd.DataFrame):
 
 def cleancensus(file: str) -> pd.DataFrame:
     """
-    :param file:
-    :return:
+    The input parameter for this function is the pathname of the census file. After passing it through the function,
+    the cleancensus() reads the file, converts it to a dataframe and cleans the file based on the output
+    required to be used in further calculations.
+    :param file: Input file path
+    :return: A Dataframe of cleaned census data
     >>> c_file = 'censussample.csv'
     >>> c_df = cleancensus(c_file)
     >>> c_df
@@ -55,8 +60,11 @@ def cleancensus(file: str) -> pd.DataFrame:
 
 def cleanhatecrime(datafile: str) -> pd.DataFrame:
     """
-    :param datafile:
-    :return:
+    The input is a path string, which when passed to the function of cleanhatecrime() will read the .csv file and
+    convert it to a Dataframe. Further cleaning is done on this dataframe to analyze relevant columns from the
+    hate crime data.
+    :param datafile: Input string pathname of csv file
+    :return: A Dataframe
     >>> h_file = 'hatesample.csv'
     >>> h_df = cleanhatecrime(h_file)
     >>> h_df
@@ -79,9 +87,12 @@ def cleanhatecrime(datafile: str) -> pd.DataFrame:
 
 def combine(dataframe1: pd.DataFrame, dataframe2: pd.DataFrame) -> pd.DataFrame:
     """
-    :param dataframe1:
-    :param dataframe2:
-    :return:
+    For our first Hypothesis, we need to merge the two dataframes containing clean census data and the cleaned
+    crime data. Passing these two dataframes as parameters within this function. The return Dataframe is a
+    joined dataframe of these two files
+    :param dataframe1: Cleaned Dataframe of census data
+    :param dataframe2: Cleaned Dataframe of hate crime data
+    :return: Merged Dataframe containing census and hate crime data
     >>> h_df = pd.DataFrame(np.array([['Florida','2017','172'],['Florida','2018','171'],['Florida','2019','139'],['Illinois','2017','104'],['Illinois','2018','144'],['Illinois','2019','97'],['Maryland','2017','115'],['Maryland','2018','62'],['Maryland','2019','22']]),columns=['STATE_NAME','DATA_YEAR','VICTIM_COUNT'])
     >>> c_df = pd.DataFrame(np.array([['Florida','20963613','2017'],['Illinois','12778828','2017'],['Maryland','6023868','2017'],['Florida','21244317','2018'],['Illinois','12723071','2018'],['Maryland','6035802','2018'],['Florida','21477737','2019'],['Illinois','12671821','2019'],['Maryland','6045680','2019']]), columns=['State','Population','Year'])
     >>> decade2 = combine(c_df, h_df)
@@ -105,9 +116,12 @@ def combine(dataframe1: pd.DataFrame, dataframe2: pd.DataFrame) -> pd.DataFrame:
 # skipping for now do last##################################################################################
 def all_years(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
     """
-    :param df1:
-    :param df2:
-    :return:
+    This function takes in the two decades worth of data through dataframes as an input parameter and calculates
+    Victims per million within the population. The output is a Dataframe containing the value of the calculated
+    Victims, against the year it has been calculated for.
+    :param df1: Dataframe containing decade wise data with victim count information
+    :param df2: Dataframe containing decade wise data with victim count information
+    :return: Dataframe containing victim counts per million of the population for the year it has been calculated
     """
     decade1 = df1[df1['VICTIM_COUNT'].notna()]
     decade2 = df2[df2['VICTIM_COUNT'].notna()]
@@ -121,10 +135,11 @@ def all_years(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
 
 def race_hypo2(all_races: list):
     """
-    :param all_races:
-    :type all_races:
-    :return:
-    :rtype:
+    The function will accept a list as a parameter containing the races we want to compare our Victim Counts
+    of Hate Crime for against its recorded state. The output will display a Scatter Plots for each of the
+    races inputted in the list.
+    :param all_races: List with all races mentioned for comparison
+    :return: A cascade of Scatter Plots for each race in the list
     """
     for indx, one_race in enumerate(all_races):
         race_hate = races.merge(dataframe2, right_on=['STATE_NAME', 'DATA_YEAR'], left_on=['Location', 'Timeframe'])[['Location', one_race, 'Total', 'VICTIM_COUNT']]
@@ -135,10 +150,12 @@ def race_hypo2(all_races: list):
 
 def unemp_data(unempfile: str):
     """
-    :param unempfile:
-    :type unempfile:
-    :return:
-    :rtype:
+    The function will accept the path of the unemployment file data stored in csv format as the input in the form
+    of a string. The function will read the csv file, convert the file into a dataframe and clean the file
+    to get relevant columns for further analysis of the unemployment rate in a State - Year wise unemployment rate
+    format.
+    :param unempfile: File path of the unemployment file data
+    :return: Cleaned Dataframe containing unemployment Data State-Year wise
     >>> u_file = 'unempsample.csv'
     >>> unempdf = unemp_data(u_file)
     >>> unempdf
@@ -164,10 +181,10 @@ def unemp_data(unempfile: str):
 
 def state_hatecrime(hc: str) -> pd.DataFrame:
     """
-    :param hc:
-    :type hc:
-    :return:
-    :rtype:
+    The input parameter is a string pathname that will be accepted byt he function. Using this pathname the
+    Crime Dataframe is created with the Crime - State - Victim count view for the Dataframe.
+    :param hc: Hate Crime data csv file pathname
+    :return: Crime Name Dataframe with Victim Counts and State analysis
     >>> hcdf = pd.read_csv('h_sam2.csv')
     >>> datacrimesstate = state_hatecrime(hcdf)
     >>> datacrimesstate
@@ -192,12 +209,12 @@ def state_hatecrime(hc: str) -> pd.DataFrame:
 
 def unemp_hate_crime(frame1: pd.DataFrame, frame2: pd.DataFrame) -> pd.DataFrame:
     """
-    :param frame1:
-    :type frame1:
-    :param frame2:
-    :type frame2:
-    :return:
-    :rtype:
+    The input parameters are the Dataframes containing the unemployment rate against a State - Year wise view in
+    the Frame1 Dataframe. The Frame2 Dataframe consists of the Offense name against the state and the Year wise
+    victim counts mapped. The putput Dataframe is a merged view of Frame1 and Frame2.
+    :param frame1: Dataframe with State - Year wise unemployment rate
+    :param frame2: Dataframe with Offense Name against State - Year wise view with Victim Counts
+    :return: Merged Dataframe
     >>> f2 = pd.DataFrame(np.array([['Illinois','2016','5.8'],['Maryland','2016','4.5'],['Florida','2016','4.8'],['Illinois','2017','4.9'],['Maryland','2017','4.3'],['Florida','2017','4.2'],['Illinois','2018','4.3'],['Maryland','2018','3.9'],['Florida','2018','3.6']]), columns=['State','Year','Unemployment Rate'])
     >>> f1 = pd.DataFrame(np.array([['Motor Vehicle Theft','Florida','2','2017'],['Robbery','Florida','4','2018'],['Robbery','Illinois','2','2017'],['Robbery','Illinois','1','2018'],['Robbery','Illinois','2','2019'],['Robbery','Maryland','1','2017'],['Robbery','Maryland','1','2018'],['Robbery','Maryland','2','2019'],['Shoplifting','Maryland','1','2017'],['Theft From Building','Maryland','2','2017']]), columns=['OFFENSE_NAME','STATE_NAME','VICTIM_COUNT','DATA_YEAR'])
     >>> unempcrimedf= unemp_hate_crime(f1, f2)
@@ -221,12 +238,11 @@ def unemp_hate_crime(frame1: pd.DataFrame, frame2: pd.DataFrame) -> pd.DataFrame
 
 def plot_unemp_hatecrime(offense_name: str, state: str):
     """
-    :param offense_name:
-    :type offense_name:
-    :param state:
-    :type state:
-    :return:
-    :rtype:
+    The input parameters are the Offense Name and the State against which we need to see the unemployment data
+    along with its victim count rate. The output Scatter Plot displays the relevant results.
+    :param offense_name: String of the Offense Name
+    :param state: String of the State to be analysed
+    :return: Scatter Plot for the Offense Name and State
     """
     unemp_hate_crime_state= unemp_crime_df.loc[(unemp_crime_df['OFFENSE_NAME'] == offense_name) & (unemp_crime_df['State'] == state)]
     scatter = unemp_hate_crime_state.plot.scatter(x='Unemployment Rate', y='VICTIM_COUNT', hover_name='Year')
@@ -237,10 +253,12 @@ def plot_unemp_hatecrime(offense_name: str, state: str):
 # skipping for now do last##################################################################################
 def unemp_hate_crime_corr(unemp_crime_df: pd.DataFrame):
     """
-    :param unemp_crime_df:
-    :type unemp_crime_df:
-    :return:
-    :rtype:
+    This function accepts the input parameter as a Dataframe containing offense and their details like State,
+    Year, Victim Count, Unemployment Rate. Using this information, the function filters out only those rows with
+    Aggravated Assault as the Offense Name to be analysed against rest of the columns. The output is a Dataframe
+    with correlation numbers for each of the States.
+    :param unemp_crime_df: Dataframe containing crime and unemployment data
+    :return: Grouped Dataframe showing correlation numbers for States against Hate Crime and Unemployment Rate
     #>>> unempcrimedf = pd.DataFrame(np.array([['Motor Vehicle Theft','Florida','2017','2','4.2'],['Aggravated Assault','Florida','2018','4','3.6'],['Aggravated Assault','Illinois','2017','2','4.9'],['Aggravated Assault','Illinois','2018','1','4.3'],['Robbery','Maryland','2017','1','4.3'],['Shoplifting','Maryland','2017','1','4.3'],['Theft From Building','Maryland','2017','2','4.3'],['Robbery','Maryland','2018','1','3.9']]), columns=['OFFENSE_NAME','State','Year','VICTIM_COUNT','Unemployment Rate'])
     #>>> unempcrimecorr = unemp_hate_crime_corr(unempcrimedf)
     #>>> unempcrimecorr
@@ -255,10 +273,10 @@ def unemp_hate_crime_corr(unemp_crime_df: pd.DataFrame):
 
 def corr_plot(state_unemp_crime_corr):
     """
-    :param state_unemp_crime_corr:
-    :type state_unemp_crime_corr:
-    :return:
-    :rtype:
+    The function will accept the unemployment and crime rate correlation dataframe as an input. This Dataframe is
+    used to filter out relevant rows with significant correlation values and plot such rows.
+    :param state_unemp_crime_corr: Dataframe containing unemployment and crime rate correlation values
+    :return: Scatter Plot based on the input Dataframe
     """
     states = state_unemp_crime_corr[(state_unemp_crime_corr > 0.5) | (state_unemp_crime_corr < -0.5)]
     for_corr = unemp_crime_df.groupby(['State', 'OFFENSE_NAME', 'Year']).sum().reset_index()
@@ -270,6 +288,13 @@ def corr_plot(state_unemp_crime_corr):
 
 
 def hate_crime_race_bias(hate_crime_df: pd.DataFrame):
+    """
+    The function will input the Hate Crime Dataframe as its input parameter. Based on this Dataframe, the function
+    will perform calculations to analyze the hate crimes against specific biases mentioned in the original Dataframe.
+    Using this calculation, a Stacked Bar Chart is plotted to view the Bias Offense Victim Count.
+    :param hate_crime_df: The Hate Crime Dataframe
+    :return: Bar Chart plotted for the Bias Offense and Victim Counts
+    """
     hate_crimes_races = hate_crime_df[['DATA_YEAR', 'STATE_NAME', 'VICTIM_COUNT', 'BIAS_DESC']]
     hate_crimes_races = hate_crimes_races[hate_crimes_races['BIAS_DESC'].isin(['Anti-White', 'Anti-Black or African American', 'Anti-Asian', 'Anti-Multiple Races, Group'])]
     hate_crimes_bias_perc = hate_crimes_races.groupby('DATA_YEAR').sum()
@@ -288,10 +313,6 @@ if __name__ == '__main__':
     file1 = 'pop_2000-2009.csv'
     file2 = 'pop_2010-2019.csv'
     datafile = 'hate_crime.csv'
-    #decade1 = cleancensus(file1)
-    #decade2 = cleancensus(file2)
-    #hate_crime = cleanhatecrime(datafile)
-    #print(hate_crime)
     dataframe1 = cleancensus(file1)
     dataframe2 = cleanhatecrime(datafile)
     dataframe3 = cleancensus(file2)
