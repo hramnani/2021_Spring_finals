@@ -106,7 +106,7 @@ def combine(dataframe1: pd.DataFrame, dataframe2: pd.DataFrame) -> pd.DataFrame:
     return joined
 
 
-def all_years(df1: pd.DataFrame, df2; pd.DataFrame) -> pd.DataFrame:
+def all_years(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
     """
     :param df1:
     :param df2:
