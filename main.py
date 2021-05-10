@@ -5,7 +5,18 @@ import plotly.graph_objs as go
 import glob as glob
 
 
-def cleancensus(file):
+def hypo1_trendline_decadewise(year_df: pd.DataFrame):
+    """
+    :param year_df:
+    :return:
+    """
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(y=year_df[:11], x=year_df[:11].index, name='2000s'))
+    fig.add_trace(go.Scatter(y=year_df[10:], x=year_df[10:].index, name='2010s'))
+    fig.show()
+
+
+def cleancensus(file: str) -> pd.DataFrame:
     """
     :param file:
     :return:
@@ -42,7 +53,7 @@ def cleancensus(file):
     return census
 
 
-def cleanhatecrime(datafile):
+def cleanhatecrime(datafile: str) -> pd.DataFrame:
     """
     :param datafile:
     :return:
@@ -67,7 +78,7 @@ def cleanhatecrime(datafile):
 
     return table
 
-def combine(dataframe1, dataframe2):
+def combine(dataframe1: pd.DataFrame, dataframe2: pd.DataFrame) -> pd.DataFrame:
     """
     :param dataframe1:
     :param dataframe2:
@@ -95,7 +106,7 @@ def combine(dataframe1, dataframe2):
     return joined
 
 
-def all_years(df1, df2):
+def all_years(df1: pd.DataFrame, df2; pd.DataFrame) -> pd.DataFrame:
     """
     :param df1:
     :param df2:
@@ -111,18 +122,7 @@ def all_years(df1, df2):
     return all_years_table
 
 
-def hypo1_trendline_decadewise(year_df):
-    """
-    :param year_df:
-    :return:
-    """
-    fig = go.Figure()
-    fig.add_trace(go.Scatter(y=year_df[:11], x=year_df[:11].index, name='2000s'))
-    fig.add_trace(go.Scatter(y=year_df[10:], x=year_df[10:].index, name='2010s'))
-    fig.show()
-
-
-def race_hypo2(all_races):
+def race_hypo2(all_races: list):
     """
 
     :param all_races:
@@ -137,7 +137,7 @@ def race_hypo2(all_races):
         fig.show()
 
 
-def unemp_data(unempfile):
+def unemp_data(unempfile: str):
     """
 
     :param unempfile:
@@ -154,7 +154,7 @@ def unemp_data(unempfile):
 
 
 
-def state_hatecrime(hc):
+def state_hatecrime(hc: str) -> pd.DataFrame:
     """
 
     :param hc:
@@ -169,7 +169,7 @@ def state_hatecrime(hc):
 
 
 
-def unemp_hate_crime(frame1, frame2):
+def unemp_hate_crime(frame1: pd.DataFrame, frame2: pd.DataFrame) -> pd.DataFrame:
     """
 
     :param frame1:
@@ -185,7 +185,7 @@ def unemp_hate_crime(frame1, frame2):
 
 
 
-def plot_unemp_hatecrime(offense_name, state):
+def plot_unemp_hatecrime(offense_name: str, state: str):
     """
 
     :param offense_name:
@@ -201,7 +201,7 @@ def plot_unemp_hatecrime(offense_name, state):
 
 
 
-def unemp_hate_crime_corr(unemp_crime_df):
+def unemp_hate_crime_corr(unemp_crime_df: pd.DataFrame):
     """
 
     :param unemp_crime_df:
@@ -233,7 +233,7 @@ def corr_plot(state_unemp_crime_corr):
 
 
 
-def hate_crime_race_bias(hate_crime_df):
+def hate_crime_race_bias(hate_crime_df: pd.DataFrame):
     hate_crimes_races = hate_crime_df[['DATA_YEAR', 'STATE_NAME', 'VICTIM_COUNT', 'BIAS_DESC']]
     hate_crimes_races = hate_crimes_races[hate_crimes_races['BIAS_DESC'].isin(['Anti-White', 'Anti-Black or African American', 'Anti-Asian', 'Anti-Multiple Races, Group'])]
     hate_crimes_bias_perc = hate_crimes_races.groupby('DATA_YEAR').sum()
