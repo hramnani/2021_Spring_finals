@@ -3,6 +3,7 @@ import plotly.express as px
 pd.options.plotting.backend = "plotly"
 import plotly.graph_objs as go
 import glob as glob
+import numpy as np
 
 
 def hypo1_trendline_decadewise(year_df: pd.DataFrame):
@@ -33,7 +34,6 @@ def cleancensus(file: str) -> pd.DataFrame:
     9    Florida    21477737  2019
     10  Illinois    12671821  2019
     11  Maryland     6045680  2019
-
     """
     cleaned = pd.read_csv(file)
     year_cols = []
@@ -70,7 +70,6 @@ def cleanhatecrime(datafile: str) -> pd.DataFrame:
     6   Maryland       2017           115
     7   Maryland       2018            62
     8   Maryland       2019            22
-
     """
     read = pd.read_csv(datafile)
     table = read.groupby(['STATE_NAME', 'DATA_YEAR']).sum()[['VICTIM_COUNT']]
@@ -83,29 +82,27 @@ def combine(dataframe1: pd.DataFrame, dataframe2: pd.DataFrame) -> pd.DataFrame:
     :param dataframe1:
     :param dataframe2:
     :return:
-    >>> c_file = 'censussample.csv'
-    >>> c_df = cleancensus(c_file)
-    >>> h_file = 'hatesample.csv'
-    >>> h_df = cleanhatecrime(h_file)
+    >>> h_df = pd.DataFrame(np.array([['Florida','2017','172'],['Florida','2018','171'],['Florida','2019','139'],['Illinois','2017','104'],['Illinois','2018','144'],['Illinois','2019','97'],['Maryland','2017','115'],['Maryland','2018','62'],['Maryland','2019','22']]),columns=['STATE_NAME','DATA_YEAR','VICTIM_COUNT'])
+    >>> c_df = pd.DataFrame(np.array([['Florida','20963613','2017'],['Illinois','12778828','2017'],['Maryland','6023868','2017'],['Florida','21244317','2018'],['Illinois','12723071','2018'],['Maryland','6035802','2018'],['Florida','21477737','2019'],['Illinois','12671821','2019'],['Maryland','6045680','2019']]), columns=['State','Population','Year'])
     >>> decade2 = combine(c_df, h_df)
     >>> decade2
-          State  Population  Year  VICTIM_COUNT
-    0   Florida    20963613  2017           172
-    1  Illinois    12778828  2017           104
-    2  Maryland     6023868  2017           115
-    3   Florida    21244317  2018           171
-    4  Illinois    12723071  2018           144
-    5  Maryland     6035802  2018            62
-    6   Florida    21477737  2019           139
-    7  Illinois    12671821  2019            97
-    8  Maryland     6045680  2019            22
-
+          State Population  Year VICTIM_COUNT
+    0   Florida   20963613  2017          172
+    1  Illinois   12778828  2017          104
+    2  Maryland    6023868  2017          115
+    3   Florida   21244317  2018          171
+    4  Illinois   12723071  2018          144
+    5  Maryland    6035802  2018           62
+    6   Florida   21477737  2019          139
+    7  Illinois   12671821  2019           97
+    8  Maryland    6045680  2019           22
     """
     joined = dataframe1.merge(dataframe2, how='left', left_on= ['State', 'Year'], right_on= ['STATE_NAME', 'DATA_YEAR'])
     joined.drop(['STATE_NAME', 'DATA_YEAR'], 1, inplace=True)
     return joined
 
 
+# skipping for now do last##################################################################################
 def all_years(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
     """
     :param df1:
@@ -124,7 +121,6 @@ def all_years(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
 
 def race_hypo2(all_races: list):
     """
-
     :param all_races:
     :type all_races:
     :return:
@@ -139,11 +135,23 @@ def race_hypo2(all_races: list):
 
 def unemp_data(unempfile: str):
     """
-
     :param unempfile:
     :type unempfile:
     :return:
     :rtype:
+    >>> u_file = 'unempsample.csv'
+    >>> unempdf = unemp_data(u_file)
+    >>> unempdf
+          State  Year  Unemployment Rate
+    0  Illinois  2016                5.8
+    1  Maryland  2016                4.5
+    2   Florida  2016                4.8
+    3  Illinois  2017                4.9
+    4  Maryland  2017                4.3
+    5   Florida  2017                4.2
+    6  Illinois  2018                4.3
+    7  Maryland  2018                3.9
+    8   Florida  2018                3.6
     """
     uefile = pd.read_csv(unempfile)
     uefile.drop('Fips', 1, inplace=True)
@@ -156,11 +164,24 @@ def unemp_data(unempfile: str):
 
 def state_hatecrime(hc: str) -> pd.DataFrame:
     """
-
     :param hc:
     :type hc:
     :return:
     :rtype:
+    >>> hcdf = pd.read_csv('h_sam2.csv')
+    >>> datacrimesstate = state_hatecrime(hcdf)
+    >>> datacrimesstate
+              OFFENSE_NAME STATE_NAME  VICTIM_COUNT  DATA_YEAR
+    0  Motor Vehicle Theft    Florida             2       2017
+    1              Robbery    Florida             4       2018
+    2              Robbery   Illinois             2       2017
+    3              Robbery   Illinois             1       2018
+    4              Robbery   Illinois             2       2019
+    5              Robbery   Maryland             1       2017
+    6              Robbery   Maryland             1       2018
+    7              Robbery   Maryland             2       2019
+    8          Shoplifting   Maryland             1       2017
+    9  Theft From Building   Maryland             2       2017
     """
     data_crimes_state = hc.groupby([hc.OFFENSE_NAME, 'STATE_NAME', 'DATA_YEAR']).sum().reset_index()
     data_crimes_state = data_crimes_state[['OFFENSE_NAME', 'STATE_NAME', 'VICTIM_COUNT', 'DATA_YEAR']]
@@ -171,7 +192,6 @@ def state_hatecrime(hc: str) -> pd.DataFrame:
 
 def unemp_hate_crime(frame1: pd.DataFrame, frame2: pd.DataFrame) -> pd.DataFrame:
     """
-
     :param frame1:
     :type frame1:
     :param frame2:
@@ -187,7 +207,6 @@ def unemp_hate_crime(frame1: pd.DataFrame, frame2: pd.DataFrame) -> pd.DataFrame
 
 def plot_unemp_hatecrime(offense_name: str, state: str):
     """
-
     :param offense_name:
     :type offense_name:
     :param state:
@@ -203,7 +222,6 @@ def plot_unemp_hatecrime(offense_name: str, state: str):
 
 def unemp_hate_crime_corr(unemp_crime_df: pd.DataFrame):
     """
-
     :param unemp_crime_df:
     :type unemp_crime_df:
     :return:
@@ -218,7 +236,6 @@ def unemp_hate_crime_corr(unemp_crime_df: pd.DataFrame):
 
 def corr_plot(state_unemp_crime_corr):
     """
-
     :param state_unemp_crime_corr:
     :type state_unemp_crime_corr:
     :return:
