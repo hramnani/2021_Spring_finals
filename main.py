@@ -198,6 +198,20 @@ def unemp_hate_crime(frame1: pd.DataFrame, frame2: pd.DataFrame) -> pd.DataFrame
     :type frame2:
     :return:
     :rtype:
+    >>> f2 = pd.DataFrame(np.array([['Illinois','2016','5.8'],['Maryland','2016','4.5'],['Florida','2016','4.8'],['Illinois','2017','4.9'],['Maryland','2017','4.3'],['Florida','2017','4.2'],['Illinois','2018','4.3'],['Maryland','2018','3.9'],['Florida','2018','3.6']]), columns=['State','Year','Unemployment Rate'])
+    >>> f1 = pd.DataFrame(np.array([['Motor Vehicle Theft','Florida','2','2017'],['Robbery','Florida','4','2018'],['Robbery','Illinois','2','2017'],['Robbery','Illinois','1','2018'],['Robbery','Illinois','2','2019'],['Robbery','Maryland','1','2017'],['Robbery','Maryland','1','2018'],['Robbery','Maryland','2','2019'],['Shoplifting','Maryland','1','2017'],['Theft From Building','Maryland','2','2017']]), columns=['OFFENSE_NAME','STATE_NAME','VICTIM_COUNT','DATA_YEAR'])
+    >>> unempcrimedf= unemp_hate_crime(f1, f2)
+    >>> unempcrimedf
+              OFFENSE_NAME     State  Year VICTIM_COUNT Unemployment Rate
+    0  Motor Vehicle Theft   Florida  2017            2               4.2
+    1              Robbery   Florida  2018            4               3.6
+    2              Robbery  Illinois  2017            2               4.9
+    3              Robbery  Illinois  2018            1               4.3
+    4              Robbery  Maryland  2017            1               4.3
+    5          Shoplifting  Maryland  2017            1               4.3
+    6  Theft From Building  Maryland  2017            2               4.3
+    7              Robbery  Maryland  2018            1               3.9
+
     """
     group_crime_unemp = frame1.merge(frame2, left_on=['STATE_NAME', 'DATA_YEAR'], right_on=['State', 'Year'])
     group_crime_unemp = group_crime_unemp[['OFFENSE_NAME', 'State', 'Year', 'VICTIM_COUNT', 'Unemployment Rate']]
@@ -220,12 +234,17 @@ def plot_unemp_hatecrime(offense_name: str, state: str):
 
 
 
+# skipping for now do last##################################################################################
 def unemp_hate_crime_corr(unemp_crime_df: pd.DataFrame):
     """
     :param unemp_crime_df:
     :type unemp_crime_df:
     :return:
     :rtype:
+    #>>> unempcrimedf = pd.DataFrame(np.array([['Motor Vehicle Theft','Florida','2017','2','4.2'],['Aggravated Assault','Florida','2018','4','3.6'],['Aggravated Assault','Illinois','2017','2','4.9'],['Aggravated Assault','Illinois','2018','1','4.3'],['Robbery','Maryland','2017','1','4.3'],['Shoplifting','Maryland','2017','1','4.3'],['Theft From Building','Maryland','2017','2','4.3'],['Robbery','Maryland','2018','1','3.9']]), columns=['OFFENSE_NAME','State','Year','VICTIM_COUNT','Unemployment Rate'])
+    #>>> unempcrimecorr = unemp_hate_crime_corr(unempcrimedf)
+    #>>> unempcrimecorr
+
     """
     for_corr = unemp_crime_df.groupby(['State', 'OFFENSE_NAME', 'Year']).sum().reset_index()
     for_corr = for_corr.loc[(for_corr['OFFENSE_NAME'] == 'Aggravated Assault')]
