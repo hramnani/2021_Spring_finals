@@ -42,13 +42,17 @@ As we can see from the below graph as one example of a State, there is no strong
 
 
 ### Hypothesis 4:
-Since 1991, Anti-white hate crines have increased, while crimes against other races (Black, Asian, Multiple) have decreased
+Since 1991, Anti-white hate crimes have increased, while crimes against other races (Black, Asian, Multiple) have decreased.
+![Bias](https://user-images.githubusercontent.com/77983353/117680118-7e690080-b176-11eb-9331-eec8ad8a258a.jpg)
+
 
 ### Conclusion for Hypothesis 4:
 As we can see from the Stacked Bar Plot, the hate crimes towards races mostly remain unchanged. Hence, we Reject our Hypothesis.
 ![H4_Stacked Bar](https://user-images.githubusercontent.com/77983353/117679205-adcb3d80-b175-11eb-965f-bcbc417e1796.png)
 
 
+### Conclusion:
+From all our above Hypothesis, we aim to understand how Hate Crimes have changed over the decades, and whether the Racial Population plays a part in the Victim Count of Hate Crimes being committed over the years, along with an Unemployment and a Bias factor that is analysed against the Data.
 
 
 ### Data Sources:
