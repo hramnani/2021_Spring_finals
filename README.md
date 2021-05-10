@@ -18,7 +18,8 @@ The rate of hate crimes was higher between 2000-2010 vs between 2010-2019
 
 ### Conclusion for Hypothesis 1:
 From the below graph, we can see that we fail to reject our Hypothesis 1. There is infact a dip in the crime rates in the decade of 2010-2019
-![H1_Decadewise Trend Line](https://user-images.githubusercontent.com/77983353/117675993-bc642580-b172-11eb-980e-938f4b52896d.png)
+![H1](https://user-images.githubusercontent.com/77983353/117689927-e1ab6080-b17f-11eb-9dc3-45ef4e1aaa41.png)
+
 
 
 ### Hypothesis 2:
@@ -27,7 +28,8 @@ There is a correlation between States with different race population and hate cr
 
 ### Conclusion for Hypothesis 2:
 From the below graph as an example of one of the Races that we analyze here, we can see that we fail to reject our Hypothesis 2.
-![H2_Race Population V C](https://user-images.githubusercontent.com/77983353/117677072-bf134a80-b173-11eb-9781-deacce35f8e2.png)
+![H2](https://user-images.githubusercontent.com/77983353/117689966-eb34c880-b17f-11eb-831e-24d060e84a9b.png)
+
 
 
 
@@ -37,7 +39,8 @@ Testing association between unemployment rate and hate crime based on the correa
 
 ### Conclusion for Hypothesis 3:
 As we can see from the below graph as one example of a State, there is no strong pattern that can be deduced here for determining whether there is an association between Unemployment Rate and Victim Counts. Hence, here we Reject our Hypothesis.
-![H3_California](https://user-images.githubusercontent.com/77983353/117677709-524c8000-b174-11eb-92f2-182999a6cb9b.png)
+![H3](https://user-images.githubusercontent.com/77983353/117689987-f25bd680-b17f-11eb-9d22-2cbbc2b57440.png)
+
 
 
 
@@ -48,7 +51,8 @@ Since 1991, Anti-white hate crimes have increased, while crimes against other ra
 
 ### Conclusion for Hypothesis 4:
 As we can see from the Stacked Bar Plot, the hate crimes towards races mostly remain unchanged. Hence, we Reject our Hypothesis.
-![H4_Stacked Bar](https://user-images.githubusercontent.com/77983353/117679205-adcb3d80-b175-11eb-965f-bcbc417e1796.png)
+![H4](https://user-images.githubusercontent.com/77983353/117690007-f7b92100-b17f-11eb-8147-16eda28c2c64.png)
+
 
 
 ### Conclusion:
