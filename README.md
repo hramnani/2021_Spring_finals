@@ -7,7 +7,7 @@ Shraddha Tiwari (tiwari5)
 ## Story of Hate Crimes- A Decade-wise analysis of hate crimes in the US
 
 The purpose of our project is to look at how Hate Crimes in the USA have an association with various factors.
-We came up with topic as the social issue about Hate Crimes is more relevant than ever now, and the Hypothesis here help us understand how the Hate Crime has changed over the two decades being analysed here.
+We came up with topic as the social issue about Hate Crimes is more relevant now, than ever, and the Hypotheses here help us understand how Hate Crimes have changed over the two decades.
 
 We came up with 2 Major Hypothesis, and upon discussion with our Professor, we decided to include a 3rd and a 4th Hypothesis as well to better capture the data.
 
