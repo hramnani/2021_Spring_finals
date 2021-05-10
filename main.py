@@ -115,7 +115,6 @@ def combine(dataframe1: pd.DataFrame, dataframe2: pd.DataFrame) -> pd.DataFrame:
     return joined
 
 
-# skipping for now do last##################################################################################
 def all_years(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
     """
     This function takes in the two decades worth of data through dataframes as an input parameter and calculates
@@ -232,7 +231,6 @@ def unemp_hate_crime(frame1: pd.DataFrame, frame2: pd.DataFrame) -> pd.DataFrame
     5          Shoplifting  Maryland  2017            1               4.3
     6  Theft From Building  Maryland  2017            2               4.3
     7              Robbery  Maryland  2018            1               3.9
-
     """
     group_crime_unemp = frame1.merge(frame2, left_on=['STATE_NAME', 'DATA_YEAR'], right_on=['State', 'Year'])
     group_crime_unemp = group_crime_unemp[['OFFENSE_NAME', 'State', 'Year', 'VICTIM_COUNT', 'Unemployment Rate']]
@@ -254,7 +252,6 @@ def plot_unemp_hatecrime(offense_name: str, state: str):
 
 
 
-# skipping for now do last##################################################################################
 def unemp_hate_crime_corr(unemp_crime_df: pd.DataFrame):
     """
     This function accepts the input parameter as a Dataframe containing offense and their details like State,
@@ -266,7 +263,6 @@ def unemp_hate_crime_corr(unemp_crime_df: pd.DataFrame):
     #>>> unempcrimedf = pd.DataFrame(np.array([['Motor Vehicle Theft','Florida','2017','2','4.2'],['Aggravated Assault','Florida','2018','4','3.6'],['Aggravated Assault','Illinois','2017','2','4.9'],['Aggravated Assault','Illinois','2018','1','4.3'],['Robbery','Maryland','2017','1','4.3'],['Shoplifting','Maryland','2017','1','4.3'],['Theft From Building','Maryland','2017','2','4.3'],['Robbery','Maryland','2018','1','3.9']]), columns=['OFFENSE_NAME','State','Year','VICTIM_COUNT','Unemployment Rate'])
     #>>> unempcrimecorr = unemp_hate_crime_corr(unempcrimedf)
     #>>> unempcrimecorr
-
     """
     for_corr = unemp_crime_df.groupby(['State', 'OFFENSE_NAME', 'Year']).sum().reset_index()
     for_corr = for_corr.loc[(for_corr['OFFENSE_NAME'] == 'Aggravated Assault')]
@@ -323,39 +319,40 @@ if __name__ == '__main__':
     dataframe3 = cleancensus(file2)
     decade1 = combine(dataframe1, dataframe2)
     decade2 = combine(dataframe3, dataframe2)
-    # all_years_df = all_years(decade1, decade2)
-    #print(all_years_df)
-    #hypo1_trendline_decadewise(all_years_df)
+    all_years_df = all_years(decade1, decade2)
+
+    # Plotting a Trend Line for Hypothesis 1:
+    hypo1_trendline_decadewise(all_years_df)
+
     temp = []
     for files in glob.glob("./csv/*.csv"):
         df = pd.read_csv(files, index_col=None, header=0)
         temp.append(df)
     races = pd.concat(temp, axis=0, ignore_index=True)
-    #print(races.columns)
-    #race_hypo2(['White', 'Black', 'Hispanic', 'Asian', 'American Indian/Alaska Native',
-               #'Native Hawaiian/Other Pacific Islander', 'Multiple Races'])
+
+    # Plotting a Scatter Plot for all Races for Hypothesis 2:
+    race_hypo2(['White', 'Black', 'Hispanic', 'Asian', 'American Indian/Alaska Native',
+               'Native Hawaiian/Other Pacific Islander', 'Multiple Races'])
 
     unempfile = 'unemp.csv'
     unemp_df = unemp_data(unempfile)
-    #print(unemp_df)
-
 
     hc_df = pd.read_csv('hate_crime.csv')
     data_crimes_state = state_hatecrime(hc_df)
-    #print(data_crimes_state)
 
     frame1 = data_crimes_state
     frame2 = unemp_df
-    unemp_crime_df= unemp_hate_crime(frame1, frame2)
-    #print(unemp_crime_df)
-
+    unemp_crime_df = unemp_hate_crime(frame1, frame2)
     #plot_unemp_hatecrime('Aggravated Assault', 'Illinois')
+
     state_unemp_crime_corr = unemp_hate_crime_corr(unemp_crime_df)
-    #print(state_unemp_crime_corr)
+    # print(state_unemp_crime_corr)
 
+    # A Scatter Plot for the highly correlated values for Hypothesis 3:
+    print(corr_plot(state_unemp_crime_corr))
 
-    #print(corr_plot(state_unemp_crime_corr))
+    hate_crime_df = pd.read_csv('hate_crime.csv')
 
-    hate_crime_df= pd.read_csv('hate_crime.csv')
+    # Plotting a Stacked Bar Chart for Hypothesis 4:
     hc_race_bias_plot= hate_crime_race_bias(hate_crime_df)
-    #print(hc_race_bias_plot)
+    # print(hc_race_bias_plot)
