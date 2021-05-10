@@ -33,6 +33,8 @@ From the below graph as an example of one of the Races that we analyze here, we 
 
 
 
+
+
 ### Hypothesis 3:
 Testing association between unemployment rate and hate crime based on the correaltion value.
 ![Unemployment](https://user-images.githubusercontent.com/77983281/116894968-4868d100-abf8-11eb-98fc-ba856b2c8100.jpg)
@@ -80,3 +82,23 @@ Shraddha Tiwari (tiwari5):
 ### Other helpful links used:
 #### #https://stackoverflow.com/questions/28988627/pandas-correlation-groupbyfor_
 #### #https://thispointer.com/python-pandas-select-rows-in-dataframe-by-conditions-on-multiple-columns/
+
+
+#### The following is an excerpt from the Readme provided along with the hate_crime data from the FBI:
+"The Hate Crime Statistics Program of the FBIís Uniform Crime Reporting (UCR) Program collects data regarding criminal offenses that were motivated, in whole or in part, by the offenderís bias against a race, gender, gender identity, religion, disability, sexual orientation, or ethnicity, and were committed against persons, property, or society. Because motivation is subjective, it is sometimes difficult to know with certainty whether a crime resulted from the offenderís bias. Moreover, the presence of bias alone does not necessarily mean that a crime can be considered a hate crime. Only when a law enforcement investigation reveals sufficient evidence to lead a reasonable and prudent person to conclude that the offenderís actions were motivated, in whole or in part, by his or her bias, should an agency report an incident as a hate crime. 
+Addition of Animal Cruelty, Fraud Offenses, and a Cyberspace Location to NIBRS 
+
+The UCR Program began permitting law enforcement agencies that contribute their data via NIBRS to report offenses of animal cruelty, identity theft, and hacking/computer invasion, as well as the location of cyberspace in 2016. 
+
+Offense types 
+
+The law enforcement agencies that voluntarily participate in the Hate Crime Statistics Program collect details about offendersí bias motivations associated with 13 offense types already being reported to the UCR Program: murder and nonnegligent manslaughter, rape (revised and legacy definitions), aggravated assault, simple assault, intimidation, human traffickingócommercial sex acts, and human traffickingóinvoluntary servitude (crimes against persons); and robbery, burglary, larceny-theft, motor vehicle theft, arson, and destruction/damage/vandalism (crimes against property). The law enforcement agencies that participate in the UCR Program via NIBRS collect data about additional offenses for crimes against persons and crimes against property. These data appear in Hate Crime Statistics in the category of other. These agencies also collect hate crime data for the category called crimes against society, which includes drug or narcotic offenses, gambling offenses, prostitution offenses, weapon law violations, and animal cruelty offenses. Together, the offense classification other and the crime category crimes against society include 39 Group A offenses that are captured in NIBRS, which also collects the previously mentioned 13 offense types. (The NIBRS User Manual provides an explanation of the 52 Group A offenses.)
+
+Beginning in 2015, all law enforcement agencies could report human trafficking offenses. However, no human trafficking offenses with a bias motivation were reported during 2016. 
+
+Crimes against persons, property, or society 
+
+The UCR Programís data collection guidelines stipulate that a hate crime may involve multiple offenses, victims, and offenders within one incident; therefore, the Hate Crime Statistics Program is incident-based. According to UCR counting guidelines:
+  * One offense is counted for each victim in crimes against persons.
+  * One offense is counted for each offense type in crimes against property.
+  * One offense is counted for each offense type in crimes against society. "
