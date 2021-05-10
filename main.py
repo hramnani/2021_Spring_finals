@@ -16,6 +16,8 @@ def hypo1_trendline_decadewise(year_df: pd.DataFrame):
     fig = go.Figure()
     fig.add_trace(go.Scatter(y=year_df[:11], x=year_df[:11].index, name='2000s'))
     fig.add_trace(go.Scatter(y=year_df[10:], x=year_df[10:].index, name='2010s'))
+    fig.update_layout(title="Hate crime victim counts in the past 2 decades", xaxis_title="Year",
+                      yaxis_title="Victim count")
     fig.show()
 
 
@@ -145,6 +147,8 @@ def race_hypo2(all_races: list):
         race_hate = races.merge(dataframe2, right_on=['STATE_NAME', 'DATA_YEAR'], left_on=['Location', 'Timeframe'])[['Location', one_race, 'Total', 'VICTIM_COUNT']]
         race_hate_all = race_hate.groupby('Location').sum().reset_index()
         fig = race_hate_all.plot.scatter(x=one_race, y='VICTIM_COUNT', hover_name='Location')
+        fig.update_layout(title="Association between Hate crime count and Race population",
+                          yaxis_title="Victim count")
         fig.show()
 
 
@@ -283,6 +287,7 @@ def corr_plot(state_unemp_crime_corr):
     for_corr = for_corr.loc[(for_corr['OFFENSE_NAME'] == 'Aggravated Assault')]
     for state in states.index.to_list():
         fig = for_corr[for_corr['State'] == state].plot.scatter(x='Unemployment Rate', y='VICTIM_COUNT', title=state)
+        fig.update_layout(yaxis_title='Victim count')
         fig.show()
 
 
